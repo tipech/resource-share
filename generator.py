@@ -39,10 +39,11 @@ class Generator():
 	def get_random_square(self):
 		"""Get a square with random size, position in generator's bounds."""
 
-		corner = (random.uniform(0,self.width), random.uniform(0,self.height))
 		size = random.uniform(self.size_min * self.width,
 							  self.size_max * self.width)
-		return (corner[0]+size, corner[1]+size)
+		corner = (random.uniform(0,self.width - size),
+			random.uniform(0,self.height - size))
+		return (corner[0], corner[0]+size, corner[1], corner[1]+size)
 
 
 	def create_user(self):
@@ -76,7 +77,8 @@ class Generator():
 			os.mkdir("data")
 
 		# open file for storage, filename is timestamp
-		with open("data/%s.json"% datetime.now(), "w+") as file:
+		# with open("data/%s.json"% datetime.now(), "w+") as file:
+		with open("data/input.json", "w+") as file:
 			
 			# write pretty JSON to file
 			file.write( json.dumps(gen_dict, sort_keys=True,

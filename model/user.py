@@ -14,7 +14,7 @@ class User():
 
 	def __init__(self, _id, position, res_list):
 		"""Create a user with specified id and resources."""
-		self.id = _id
+		self.id = str(_id)
 		self.position = position
 		self.resources = []
 
@@ -29,8 +29,10 @@ class User():
 	def to_JSON(self):
 		"""Return a dictionary representation of the object."""
 		return {"id": self.id, "dimension": 2,
-			"dimensions": [[0,self.position[0]], [0,self.position[1]]],
-			"data": [res.as_dict() for res in self.resources]
+			"dimensions": [ [self.position[0], self.position[1]],
+							[self.position[2], self.position[3]]],
+			"data": { "resources": 
+				[res.as_dict() for res in self.resources]}
 			}
 
 
