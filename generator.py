@@ -16,7 +16,7 @@ from model.user import User
 
 class Generator():
 	"""Handles generation of User objects"""
-	def __init__(self, res_list, width=1000, height=1000,
+	def __init__(self, res_list=[], width=1000, height=1000,
 		size_min=0, size_max=.1, custom_seed = None):
 		"""Seed random number generator"""
 		
