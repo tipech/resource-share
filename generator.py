@@ -16,15 +16,23 @@ from model.user import User
 
 class Generator():
 	"""Handles generation of User objects"""
+
 	def __init__(self, res_list=[], width=1000, height=1000,
-		size_min=0, size_max=.1, custom_seed = None):
+		x_size_min=0, x_size_max=.1,
+		y_size_min=0, y_size_max=.1,
+		custom_seed = None,
+		size_dist_func=None, pos_dist_func=None):
 		"""Seed random number generator"""
 		
 		self.res_list = res_list
 		self.width = width
 		self.height = height
-		self.size_min = size_min
-		self.size_max = size_max
+		self.x_size_min = x_size_min
+		self.x_size_max = x_size_max
+		self.y_size_min = y_size_min
+		self.y_size_max = y_size_max
+		self.size_dist_func = size_dist_func
+		self.pos_dist_func = pos_dist_func
 
 		self.count = 0
 		self.users = []
@@ -36,14 +44,34 @@ class Generator():
 			random.seed()
 
 
+
 	def get_random_square(self):
 		"""Get a square with random size, position in generator's bounds."""
 
-		size = random.uniform(self.size_min * self.width,
-							  self.size_max * self.width)
-		corner = (random.uniform(0,self.width - size),
-			random.uniform(0,self.height - size))
-		return (corner[0], corner[0]+size, corner[1], corner[1]+size)
+		if not self.size_dist_func:
+			size_random = random.uniform
+		else:
+			size_random = self.size_dist_func
+
+
+		x_size = size_random(self.x_size_min * self.width,
+							 self.x_size_max * self.width)
+
+		y_size = size_random(self.y_size_min * self.height,
+							 self.y_size_max * self.height)
+
+		if not self.pos_dist_func:
+			pos_random = random.uniform
+		else:
+			pos_random = self.pos_dist_func
+
+		avail_width = self.width - x_size
+		avail_height = self.height - y_size
+
+		corner = (max(0, min(avail_width, pos_random(0, avail_width))),
+				  max(0, min(avail_height, pos_random(0, avail_height))))
+
+		return (corner[0], corner[0] + x_size, corner[1], corner[1] + y_size)
 
 
 	def create_user(self):

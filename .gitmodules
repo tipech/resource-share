@@ -1,0 +1,3 @@
+[submodule "overlap-graph"]
+	path = overlap-graph
+	url = https://github.com/tipech/overlap-graph.git
