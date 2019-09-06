@@ -13,8 +13,6 @@ import matplotlib.pyplot as plt
 
 
 
-
-
 def gauss_func(start, end):
 	mu = (start + end)/2
 	return random.gauss(mu,.2*end)
@@ -31,7 +29,7 @@ def poisson_func(start, end):
 	return .5*np.random.poisson(1500)
 
 
-generator = Generator(pos_dist_func=bimodal_func,
+generator = Generator(crop_circle=True, pos_dist_func=gauss_func,
 	x_size_min=.04, x_size_max=.04, y_size_min=.04, y_size_max=.04)
 
 

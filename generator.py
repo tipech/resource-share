@@ -20,7 +20,7 @@ class Generator():
 	def __init__(self, res_list=[], width=1000, height=1000,
 		x_size_min=0, x_size_max=.1,
 		y_size_min=0, y_size_max=.1,
-		custom_seed = None,
+		custom_seed = None, crop_circle=False,
 		size_dist_func=None, pos_dist_func=None):
 		"""Seed random number generator"""
 		
@@ -33,6 +33,7 @@ class Generator():
 		self.y_size_max = y_size_max
 		self.size_dist_func = size_dist_func
 		self.pos_dist_func = pos_dist_func
+		self.crop_circle = crop_circle
 
 		self.count = 0
 		self.users = []
@@ -70,6 +71,17 @@ class Generator():
 
 		corner = (max(0, min(avail_width, pos_random(0, avail_width))),
 				  max(0, min(avail_height, pos_random(0, avail_height))))
+		
+		i = 0
+
+		if self.crop_circle:
+			while ((corner[0]-avail_width/2)**2
+				+ (corner[1]-avail_height/2)**2
+				> (avail_width/2)**2 and i < 1000):
+		
+				i+=1	
+				corner=(max(0, min(avail_width, pos_random(0, avail_width))),
+					max(0, min(avail_height, pos_random(0, avail_height))))
 
 		return (corner[0], corner[0] + x_size, corner[1], corner[1] + y_size)
 
