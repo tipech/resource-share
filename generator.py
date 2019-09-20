@@ -18,8 +18,8 @@ class Generator():
 	"""Handles generation of User objects"""
 
 	def __init__(self, res_list=[], width=1000, height=1000,
-		x_size_min=0, x_size_max=.1,
-		y_size_min=0, y_size_max=.1,
+		x_size_min=0, x_size_max=.05,
+		y_size_min=0, y_size_max=.05,
 		custom_seed = None, crop_circle=False,
 		size_dist_func=None, pos_dist_func=None):
 		"""Seed random number generator"""

@@ -28,12 +28,16 @@ def bimodal_func(start, end):
 def poisson_func(start, end):
 	return .5*np.random.poisson(1500)
 
+size_pc = 0.05
+
 
 generator = Generator(crop_circle=True, pos_dist_func=gauss_func,
-	x_size_min=.04, x_size_max=.04, y_size_min=.04, y_size_max=.04)
+	x_size_max=size_pc, y_size_max=size_pc)
+
+# generator = Generator()
 
 
 
-generator.create_users(500)
+generator.create_users(1000)
 generator.to_JSON()
 
